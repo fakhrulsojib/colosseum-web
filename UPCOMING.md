@@ -100,8 +100,6 @@ The project is split into **Core** (Global) and **Modules** (Sport-Specific).
 * Columns: Rank (#), Player (Avatar + Name), Elo, Win Rate (%), Streak (Fire/Ice icon).
 * Row Click: Opens User Profile.
 
-
-
 ### 3. Match Submission (Modal)
 
 * **Step 1:** Select Opponent (Searchable Dropdown of users).
@@ -116,35 +114,3 @@ The project is split into **Core** (Global) and **Modules** (Sport-Specific).
 * "Nemesis" (Worst matchup).
 * "Bunny" (Best matchup).
 * "Current Form" (Sparkline graph of last 10 games).
-
-
-
----
-
-## 6. Step-by-Step Implementation Guide for LLM
-
-*Use these prompts to generate the frontend code.*
-
-**Step 1: Scaffold & Infrastructure**
-
-> "Initialize a Vite + React + TypeScript project. Install `axios`, `react-router-dom`, `lucide-react` (icons), and `tailwindcss`. Create the Dockerfile for a multi-stage build (Node build -> Nginx Alpine)."
-
-**Step 2: The Core Shell (Layout & Auth)**
-
-> "Create `src/core/api/client.ts` with an Axios interceptor for JWT. Create `src/core/auth/AuthContext.tsx` to handle login/logout and token storage. Then build the `Sidebar` and `Layout` components using Tailwind."
-
-**Step 3: User Management (Stitching)**
-
-> "Create a `useUserBatch` hook that accepts a list of UUIDs, calls `POST /api/auth/users/batch`, and returns a map of ID -> UserProfile. This will be used by leaderboards."
-
-**Step 4: The Pool Module (Leaderboard)**
-
-> "Create `src/modules/pool/components/Leaderboard.tsx`. It should fetch data from `/api/pool/leaderboard`, then use `useUserBatch` to resolve names. Display it in a responsive Tailwind table."
-
-**Step 5: The Pool Module (Match Submission)**
-
-> "Create a `MatchForm` component. It needs a dropdown to select an opponent (fetch all users from Core first) and a Submit button that POSTs to `/api/pool/matches`."
-
-**Step 6: Routing & Assembly**
-
-> "Set up `App.tsx` with React Router. Define routes for `/login`, `/callback`, and protected routes for `/app/*`. Mount the Pool module at `/app/pool`."
