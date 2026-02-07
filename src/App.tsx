@@ -1,35 +1,57 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from 'react';
+import Login from './modules/core/pages/Login';
+import Profile from './modules/core/pages/Profile';
+import LeaderboardPage from './modules/pool/pages/LeaderboardPage';
+import MatchEntryPage from './modules/pool/pages/MatchEntryPage';
+import './App.css';
 
-function App() {
-  const [count, setCount] = useState(0)
+const App: React.FC = () => {
+    const [currentPage, setCurrentPage] = useState<'login' | 'profile' | 'leaderboard' | 'match'>('leaderboard');
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    const renderPage = () => {
+        switch (currentPage) {
+            case 'login': return <Login />;
+            case 'profile': return <Profile />;
+            case 'leaderboard': return <LeaderboardPage />;
+            case 'match': return <MatchEntryPage />;
+            default: return <LeaderboardPage />;
+        }
+    };
 
-export default App
+    return (
+        <div className="min-h-screen bg-slate-900 text-white font-sans">
+            <nav className="p-4 bg-slate-800 flex gap-4 justify-center shadow-lg">
+                <button 
+                    onClick={() => setCurrentPage('leaderboard')}
+                    className={`px-4 py-2 rounded ${currentPage === 'leaderboard' ? 'bg-blue-600' : 'hover:bg-slate-700'}`}
+                >
+                    Leaderboard
+                </button>
+                <button 
+                    onClick={() => setCurrentPage('match')}
+                    className={`px-4 py-2 rounded ${currentPage === 'match' ? 'bg-blue-600' : 'hover:bg-slate-700'}`}
+                >
+                    Record Match
+                </button>
+                <button 
+                    onClick={() => setCurrentPage('profile')}
+                    className={`px-4 py-2 rounded ${currentPage === 'profile' ? 'bg-blue-600' : 'hover:bg-slate-700'}`}
+                >
+                    Profile
+                </button>
+                <button 
+                    onClick={() => setCurrentPage('login')}
+                    className={`px-4 py-2 rounded ${currentPage === 'login' ? 'bg-blue-600' : 'hover:bg-slate-700'}`}
+                >
+                    Login
+                </button>
+            </nav>
+
+            <main className="p-8">
+                {renderPage()}
+            </main>
+        </div>
+    );
+};
+
+export default App;

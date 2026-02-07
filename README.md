@@ -13,14 +13,17 @@ colosseum-web/
 ├── vite.config.ts            # Vite configuration.
 ├── /src
 │   ├── App.tsx               # Main router and layout.
-│   ├── /components
-│   │   ├── Leaderboard.tsx   # Ranking table.
-│   │   └── MatchForm.tsx     # Submission form for games.
-│   ├── /pages
-│   │   ├── Login.tsx         # Google Auth entry.
-│   │   └── Profile.tsx       # Player stats and nemesis info.
-│   └── /services
-│       └── api.ts            # API client configuration.
+│   ├── /modules              # Modular architecture
+│   │   ├── /core             # Identity & Auth
+│   │   │   ├── /pages        # Login, Profile
+│   │   │   └── /services     # Auth logic
+│   │   ├── /pool             # Game Engine logic
+│   │   │   ├── /pages        # Leaderboard, MatchEntry
+│   │   │   └── /components   # Result forms, rank tables
+│   │   └── /common           # Shared resources
+│   │       ├── /components   # Buttons, Modals, Cards
+│   │       └── /services     # Shared API client
+│   └── main.tsx
 ```
 
 ## 🚀 Features
