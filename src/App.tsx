@@ -4,11 +4,12 @@ import Profile from './modules/core/pages/Profile';
 import LeaderboardPage from './modules/pool/pages/LeaderboardPage';
 import MatchEntryPage from './modules/pool/pages/MatchEntryPage';
 import LandingPage from './modules/core/pages/LandingPage';
+import PoolLandingPage from './modules/pool/pages/PoolLandingPage';
 import DockNavigation from './modules/core/components/landing/DockNavigation';
 import './App.css';
 
 const App: React.FC = () => {
-    const [currentPage, setCurrentPage] = useState<'landing' | 'profile' | 'leaderboard' | 'match'>('landing');
+    const [currentPage, setCurrentPage] = useState<'landing' | 'pool-landing' | 'profile' | 'leaderboard' | 'match'>('landing');
     const [token, setToken] = useState<string | null>(localStorage.getItem('token'));
 
     const handleLogout = () => {
@@ -19,11 +20,12 @@ const App: React.FC = () => {
 
     const renderPage = () => {
         switch (currentPage) {
-            case 'landing': return <LandingPage />;
+            case 'landing': return <LandingPage onNavigate={setCurrentPage as any} />;
+            case 'pool-landing': return <PoolLandingPage />;
             case 'profile': return <Profile onLogout={handleLogout} />;
             case 'leaderboard': return <LeaderboardPage />;
             case 'match': return <MatchEntryPage />;
-            default: return <LandingPage />;
+            default: return <LandingPage onNavigate={setCurrentPage as any} />;
         }
     };
 
