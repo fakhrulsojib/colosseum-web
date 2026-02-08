@@ -56,7 +56,7 @@ const BentoGrid: React.FC = () => {
                 </motion.div>
             </div>
         </div>
-        </div >
+
     );
 };
 
