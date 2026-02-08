@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Login from './modules/core/pages/Login';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 import Profile from './modules/core/pages/Profile';
 import LeaderboardPage from './modules/pool/pages/LeaderboardPage';
 import MatchEntryPage from './modules/pool/pages/MatchEntryPage';
@@ -8,37 +8,19 @@ import DockNavigation from './modules/core/components/landing/DockNavigation';
 import './App.css';
 
 const App: React.FC = () => {
-    const [currentPage, setCurrentPage] = useState<'landing' | 'login' | 'profile' | 'leaderboard' | 'match'>('landing');
+    const [currentPage, setCurrentPage] = useState<'landing' | 'profile' | 'leaderboard' | 'match'>('landing');
     const [token, setToken] = useState<string | null>(localStorage.getItem('token'));
 
-    React.useEffect(() => {
-        // Handle OAuth success redirect
-        if (window.location.pathname === '/auth/success') {
-            const params = new URLSearchParams(window.location.search);
-            const tokenFromUrl = params.get('token');
-            if (tokenFromUrl) {
-                localStorage.setItem('token', tokenFromUrl);
-                setToken(tokenFromUrl);
-                setCurrentPage('profile');
-                // Clean up URL
-                window.history.replaceState({}, document.title, "/");
-            }
-        }
-    }, []);
-
-    /*
     const handleLogout = () => {
-        localStorage.removeItem('token');
         setToken(null);
-        setCurrentPage('login');
+        localStorage.removeItem('token');
+        setCurrentPage('landing');
     };
-    */
 
     const renderPage = () => {
         switch (currentPage) {
             case 'landing': return <LandingPage />;
-            case 'login': return <Login />;
-            case 'profile': return <Profile />;
+            case 'profile': return <Profile onLogout={handleLogout} />;
             case 'leaderboard': return <LeaderboardPage />;
             case 'match': return <MatchEntryPage />;
             default: return <LandingPage />;
@@ -46,19 +28,20 @@ const App: React.FC = () => {
     };
 
     return (
-        <div className="min-h-screen bg-slate-900 text-white font-sans relative">
-            {/* Render the current page */}
-            {renderPage()}
+        <GoogleOAuthProvider clientId={import.meta.env.GOOGLE_CLIENT_ID}>
+            <div className="min-h-screen bg-slate-900 text-white font-sans relative">
+                {/* Render the current page */}
+                {renderPage()}
 
-            {/* Global Dock Navigation (Visible on all pages, or maybe hide on Login?) */}
-            {currentPage !== 'login' && (
+                {/* Global Dock Navigation */}
                 <DockNavigation
                     currentPage={currentPage}
                     onNavigate={setCurrentPage}
                     isAuthenticated={!!token}
+                    setToken={setToken}
                 />
-            )}
-        </div>
+            </div>
+        </GoogleOAuthProvider>
     );
 };
 

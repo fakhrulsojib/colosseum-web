@@ -24,7 +24,7 @@ const SportSwitcher: React.FC<SportSwitcherProps> = ({ currentSport, onSportChan
                         {currentSport === sport && (
                             <motion.div
                                 layoutId="activeSport"
-                                className="absolute inset-0 bg-blue-600 rounded-full shadow-lg shadow-blue-500/30"
+                                className="absolute inset-0 bg-blue-600 rounded-full shadow-[0_0_20px_rgba(37,99,235,0.5)]"
                                 initial={false}
                                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
                             />
