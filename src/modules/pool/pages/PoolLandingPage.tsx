@@ -111,23 +111,23 @@ const HeadlinerCard: React.FC = () => {
 const PoolLandingPage: React.FC = () => {
     const [heroImages, setHeroImages] = useState<HeroImage[]>([]);
 
-    useEffect(() => {
-        const fetchHeroImages = async () => {
-            try {
-                const response = await fetch('/api/pool/hero-images');
-                if (response.ok) {
-                    const data = await response.json();
-                    setHeroImages(data);
-                } else {
-                    console.error('Failed to fetch pool hero images');
-                }
-            } catch (error) {
-                console.error('Error fetching pool hero images:', error);
+    const fetchHeroImages = React.useCallback(async () => {
+        try {
+            const response = await fetch('/api/pool/hero-images');
+            if (response.ok) {
+                const data = await response.json();
+                setHeroImages(data);
+            } else {
+                console.error('Failed to fetch pool hero images');
             }
-        };
-
-        fetchHeroImages();
+        } catch (error) {
+            console.error('Error fetching pool hero images:', error);
+        }
     }, []);
+
+    useEffect(() => {
+        fetchHeroImages();
+    }, [fetchHeroImages]);
 
     return (
         <div className="min-h-screen bg-slate-900 text-white font-sans selection:bg-blue-500/30">
@@ -154,7 +154,11 @@ const PoolLandingPage: React.FC = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.3 }}
                 >
-                    <HeroCarousel images={heroImages} />
+                    <HeroCarousel
+                        images={heroImages}
+                        uploadEndpoint="/api/pool/hero-images"
+                        onRefresh={fetchHeroImages}
+                    />
                     <HeadlinerCard />
                     <BentoGrid />
                 </motion.div>

@@ -42,23 +42,23 @@ const LandingPage: React.FC = () => {
     const navigate = useNavigate();
     const [heroImages, setHeroImages] = useState<HeroImage[]>([]);
 
-    useEffect(() => {
-        const fetchHeroImages = async () => {
-            try {
-                const response = await fetch('/api/v1/hero-images');
-                if (response.ok) {
-                    const data = await response.json();
-                    setHeroImages(data);
-                } else {
-                    console.error('Failed to fetch hero images');
-                }
-            } catch (error) {
-                console.error('Error fetching hero images:', error);
+    const fetchHeroImages = React.useCallback(async () => {
+        try {
+            const response = await fetch('/api/v1/hero-images');
+            if (response.ok) {
+                const data = await response.json();
+                setHeroImages(data);
+            } else {
+                console.error('Failed to fetch hero images');
             }
-        };
-
-        fetchHeroImages();
+        } catch (error) {
+            console.error('Error fetching hero images:', error);
+        }
     }, []);
+
+    useEffect(() => {
+        fetchHeroImages();
+    }, [fetchHeroImages]);
 
     return (
         <div className="min-h-screen bg-slate-900 text-white font-sans selection:bg-blue-500/30">
@@ -76,7 +76,11 @@ const LandingPage: React.FC = () => {
                         subtitle="The ultimate competitive gaming platform."
                     />
 
-                    <HeroCarousel images={heroImages} />
+                    <HeroCarousel
+                        images={heroImages}
+                        uploadEndpoint="/api/v1/hero-images"
+                        onRefresh={fetchHeroImages}
+                    />
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-24">
