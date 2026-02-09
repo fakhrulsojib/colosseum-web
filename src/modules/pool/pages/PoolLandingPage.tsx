@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Zap, Clock, Users, Flame } from 'lucide-react';
-import LivePulse from '../../core/components/landing/LivePulse';
+import PageHero from '../../core/components/landing/PageHero';
 import BentoGrid from '../../core/components/landing/BentoGrid';
 
 // --- HeadlinerCard Component Code ---
@@ -126,25 +126,12 @@ const PoolLandingPage: React.FC = () => {
 
             <main className="relative z-10 pt-12 pb-40 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Hero Section */}
-                <div className="text-center mb-16">
-                    <LivePulse />
-                    <motion.h1
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6 }}
-                        className="text-6xl md:text-7xl lg:text-8xl font-black tracking-tight mb-8 bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-slate-400"
-                    >
-                        POOL ARENA
-                    </motion.h1>
-                    <motion.p
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.2 }}
-                        className="text-slate-400 text-lg md:text-xl mb-10 max-w-2xl mx-auto leading-relaxed"
-                    >
-                        Master the break, sink the 8-ball, and become a legend.
-                    </motion.p>
-                </div>
+                <PageHero
+                    title="POOL ARENA"
+                    subtitle="Master the break, sink the 8-ball, and become a legend."
+                    titleClassName="text-6xl md:text-7xl lg:text-8xl mb-8"
+                    subtitleClassName="text-lg md:text-xl mb-10 max-w-2xl"
+                />
 
                 {/* Pool Content */}
                 <motion.div
