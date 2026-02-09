@@ -87,7 +87,7 @@ const HeroCarousel: React.FC = () => {
         >
             {/* Glow effect */}
             <div className="absolute inset-0 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 rounded-3xl blur-xl opacity-30 group-hover:opacity-50 transition-opacity duration-500"></div>
-            
+
             {/* Main carousel container */}
             <div className="relative bg-slate-800/90 backdrop-blur-xl border border-white/20 rounded-3xl overflow-hidden shadow-2xl aspect-[21/9]">
                 {/* Image slider */}
@@ -127,7 +127,7 @@ const HeroCarousel: React.FC = () => {
                                 />
                                 {/* Gradient overlay for text readability */}
                                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/50 to-transparent"></div>
-                                
+
                                 {/* Text content */}
                                 <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12">
                                     <motion.h2
@@ -174,11 +174,10 @@ const HeroCarousel: React.FC = () => {
                         <button
                             key={index}
                             onClick={() => handleDotClick(index)}
-                            className={`transition-all ${
-                                index === currentIndex
+                            className={`transition-all ${index === currentIndex
                                     ? 'w-8 h-2 bg-white'
                                     : 'w-2 h-2 bg-white/50 hover:bg-white/75'
-                            } rounded-full`}
+                                } rounded-full`}
                             aria-label={`Go to slide ${index + 1}`}
                         />
                     ))}
@@ -237,12 +236,12 @@ const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
                 <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:4rem_4rem]"></div>
             </div>
 
-            <main className="relative z-10 pt-24 pb-40 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <main className="relative z-10 pt-12 pb-40 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Hero Section with Carousel */}
                 <div className="mb-24">
                     <LivePulse />
                     <div className="text-center mb-12">
-                         <motion.h1
+                        <motion.h1
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6 }}
@@ -260,7 +259,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
                         </motion.p>
                     </div>
 
-                     {/* The Moved HeroCarousel */}
+                    {/* The Moved HeroCarousel */}
                     <HeroCarousel />
                 </div>
 
@@ -274,15 +273,14 @@ const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
                             transition={{ delay: 0.3 + index * 0.1 }}
                             onClick={() => !sport.disabled && onNavigate && onNavigate(sport.id)}
                             disabled={sport.disabled}
-                            className={`group relative text-left p-8 rounded-3xl border border-white/10 backdrop-blur-xl transition-all duration-300 ${
-                                sport.disabled 
-                                    ? 'opacity-50 cursor-not-allowed grayscale' 
+                            className={`group relative text-left p-8 rounded-3xl border border-white/10 backdrop-blur-xl transition-all duration-300 ${sport.disabled
+                                    ? 'opacity-50 cursor-not-allowed grayscale'
                                     : 'hover:-translate-y-2 hover:shadow-2xl hover:border-white/20'
-                            }`}
+                                }`}
                         >
                             {/* Hover Gradient Background */}
                             <div className={`absolute inset-0 rounded-3xl bg-gradient-to-br ${sport.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`} />
-                            
+
                             {/* Glow Effect */}
                             <div className={`absolute -inset-1 rounded-3xl ${sport.bgGlow} blur-xl opacity-0 group-hover:opacity-50 transition-opacity duration-500`} />
 
@@ -290,11 +288,11 @@ const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
                                 <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${sport.color} p-4 mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300 flex items-center justify-center`}>
                                     <sport.icon size={32} className="text-white" />
                                 </div>
-                                
+
                                 <h3 className="text-3xl font-bold mb-4 text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-slate-300 transition-all">
                                     {sport.title}
                                 </h3>
-                                
+
                                 <p className="text-slate-400 text-lg mb-8 leading-relaxed group-hover:text-slate-300 transition-colors">
                                     {sport.description}
                                 </p>

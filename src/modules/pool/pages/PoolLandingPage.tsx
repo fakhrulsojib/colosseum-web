@@ -33,7 +33,7 @@ const HeadlinerCard: React.FC = () => {
 
                 <div className="flex flex-col md:flex-row items-center justify-between gap-10 md:gap-12 relative z-10">
                     {/* Player 1 */}
-                    <motion.div 
+                    <motion.div
                         className="text-center md:text-left flex-1"
                         whileHover={{ scale: 1.05 }}
                         transition={{ duration: 0.2 }}
@@ -48,7 +48,7 @@ const HeadlinerCard: React.FC = () => {
 
                     {/* VS & Hype */}
                     <div className="flex-1 flex flex-col items-center max-w-md">
-                        <motion.div 
+                        <motion.div
                             className="text-5xl md:text-6xl font-black italic mb-8 bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent"
                             animate={{ scale: [1, 1.05, 1] }}
                             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
@@ -78,7 +78,7 @@ const HeadlinerCard: React.FC = () => {
                     </div>
 
                     {/* Player 2 */}
-                    <motion.div 
+                    <motion.div
                         className="text-center md:text-right flex-1"
                         whileHover={{ scale: 1.05 }}
                         transition={{ duration: 0.2 }}
@@ -94,7 +94,7 @@ const HeadlinerCard: React.FC = () => {
 
                 {/* Countdown */}
                 <div className="mt-10 pt-8 border-t border-white/10 flex items-center justify-center gap-4 text-slate-300">
-                    <motion.div 
+                    <motion.div
                         className="flex items-center gap-3 bg-gradient-to-r from-blue-600/20 to-purple-600/20 border border-blue-500/30 px-6 py-3 rounded-xl backdrop-blur-sm shadow-lg"
                         animate={{ scale: [1, 1.02, 1] }}
                         transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
@@ -115,8 +115,8 @@ const HeadlinerCard: React.FC = () => {
 const PoolLandingPage: React.FC = () => {
     return (
         <div className="min-h-screen bg-slate-900 text-white font-sans selection:bg-blue-500/30">
-             {/* Enhanced Background Effects */}
-             <div className="fixed inset-0 overflow-hidden pointer-events-none">
+            {/* Enhanced Background Effects */}
+            <div className="fixed inset-0 overflow-hidden pointer-events-none">
                 <div className="absolute -top-[20%] -left-[10%] w-[50%] h-[50%] bg-blue-500/10 rounded-full blur-[120px] animate-pulse" />
                 <div className="absolute top-[20%] -right-[10%] w-[40%] h-[40%] bg-purple-500/10 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '1s' }} />
                 <div className="absolute bottom-[0%] left-[20%] w-[30%] h-[30%] bg-orange-500/10 rounded-full blur-[100px] animate-pulse" style={{ animationDelay: '2s' }} />
@@ -124,7 +124,7 @@ const PoolLandingPage: React.FC = () => {
                 <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:4rem_4rem]"></div>
             </div>
 
-            <main className="relative z-10 pt-24 pb-40 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <main className="relative z-10 pt-12 pb-40 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Hero Section */}
                 <div className="text-center mb-16">
                     <LivePulse />
