@@ -80,7 +80,7 @@ const DockNavigation: React.FC<DockNavigationProps> = ({ isAuthenticated, setTok
                     layout
                     className="pointer-events-auto flex items-center gap-2 px-4 py-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-full shadow-2xl relative"
                 >
-                    {/* Left Items */}
+
                     {navItems.map((item) => (
                         <button
                             key={item.id}
@@ -102,7 +102,7 @@ const DockNavigation: React.FC<DockNavigationProps> = ({ isAuthenticated, setTok
                         </button>
                     ))}
 
-                    {/* Game Toggler */}
+
                     <div className="relative">
                         <AnimatePresence>
                             {isGameMenuOpen && (
@@ -162,7 +162,7 @@ const DockNavigation: React.FC<DockNavigationProps> = ({ isAuthenticated, setTok
                         </button>
                     </div>
 
-                    {/* Right Items */}
+
                     {rightItems.map((item) => (
                         <button
                             key={item.id}
@@ -186,7 +186,7 @@ const DockNavigation: React.FC<DockNavigationProps> = ({ isAuthenticated, setTok
                         </button>
                     ))}
 
-                    {/* Profile Toggler */}
+
                     <div className="relative">
                         <AnimatePresence>
                             {isProfileMenuOpen && (

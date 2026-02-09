@@ -19,7 +19,6 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({ images }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [direction, setDirection] = useState(0);
 
-    // Auto-advance carousel every 5 seconds
     useEffect(() => {
         if (images.length === 0) return;
         const timer = setInterval(() => {
@@ -69,7 +68,7 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({ images }) => {
     };
 
     if (images.length === 0) {
-        return null; // Or a loading skeleton/placeholder
+        return null;
     }
 
     return (
@@ -79,12 +78,10 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({ images }) => {
             transition={{ duration: 0.6 }}
             className="w-full mb-16 relative group"
         >
-            {/* Glow effect */}
+
             <div className="absolute inset-0 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 rounded-3xl blur-xl opacity-30 group-hover:opacity-50 transition-opacity duration-500"></div>
 
-            {/* Main carousel container */}
             <div className="relative bg-slate-800/90 backdrop-blur-xl border border-white/20 rounded-3xl overflow-hidden shadow-2xl aspect-[21/9]">
-                {/* Image slider */}
                 <div className="relative w-full h-full">
                     <AnimatePresence initial={false} custom={direction}>
                         <motion.div
@@ -112,17 +109,14 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({ images }) => {
                             }}
                             className="absolute inset-0"
                         >
-                            {/* Image with overlay */}
                             <div className="relative w-full h-full">
                                 <img
                                     src={images[currentIndex].url}
                                     alt={images[currentIndex].alt}
                                     className="w-full h-full object-cover"
                                 />
-                                {/* Gradient overlay for text readability */}
                                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/50 to-transparent"></div>
 
-                                {/* Text content */}
                                 <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12">
                                     <motion.h2
                                         initial={{ opacity: 0, y: 20 }}
@@ -146,7 +140,6 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({ images }) => {
                     </AnimatePresence>
                 </div>
 
-                {/* Navigation arrows */}
                 <button
                     onClick={handlePrev}
                     className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-all opacity-0 group-hover:opacity-100 z-10"
@@ -162,7 +155,6 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({ images }) => {
                     <ChevronRight size={24} />
                 </button>
 
-                {/* Dot indicators */}
                 <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-10">
                     {images.map((_, index) => (
                         <button
@@ -177,7 +169,6 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({ images }) => {
                     ))}
                 </div>
 
-                {/* Slide counter */}
                 <div className="absolute top-6 right-6 px-4 py-2 rounded-full bg-black/40 backdrop-blur-sm border border-white/20 text-white text-sm font-medium z-10">
                     {currentIndex + 1} / {images.length}
                 </div>

@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom';
 
 const sports = [
     {
-        id: '/pool', // Route path
+        id: '/pool',
         title: 'Pool',
         icon: Trophy,
         description: 'Master the break, sink the 8-ball, and compete in high-stakes tournaments.',
@@ -19,22 +19,22 @@ const sports = [
         bgGlow: 'bg-blue-500/20'
     },
     {
-        id: '/cricket', // Future route
+        id: '/cricket',
         title: 'Cricket',
         icon: Zap,
         description: 'Experience the thrill of T20 matches and rise through the ranks.',
         color: 'from-green-500 to-emerald-600',
         bgGlow: 'bg-green-500/20',
-        disabled: true // Coming soon
+        disabled: true
     },
     {
-        id: '/fifa', // Future route
+        id: '/fifa',
         title: 'FIFA',
         icon: Gamepad2,
         description: 'Build your ultimate team and dominate the virtual pitch.',
         color: 'from-purple-500 to-pink-600',
         bgGlow: 'bg-purple-500/20',
-        disabled: true // Coming soon
+        disabled: true
     }
 ];
 
@@ -45,7 +45,6 @@ const LandingPage: React.FC = () => {
     useEffect(() => {
         const fetchHeroImages = async () => {
             try {
-                // Fetch from the API gateway
                 const response = await fetch('/api/v1/hero-images');
                 if (response.ok) {
                     const data = await response.json();
@@ -63,7 +62,7 @@ const LandingPage: React.FC = () => {
 
     return (
         <div className="min-h-screen bg-slate-900 text-white font-sans selection:bg-blue-500/30">
-            {/* Background Effects */}
+
             <div className="fixed inset-0 overflow-hidden pointer-events-none">
                 <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] bg-indigo-500/10 rounded-full blur-[150px] animate-pulse" />
                 <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] bg-blue-600/10 rounded-full blur-[150px] animate-pulse" style={{ animationDelay: '2s' }} />
@@ -71,18 +70,15 @@ const LandingPage: React.FC = () => {
             </div>
 
             <main className="relative z-10 pt-12 pb-40 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                {/* Hero Section with Carousel */}
                 <div className="mb-24">
                     <PageHero
                         title="COLOSSEUM"
                         subtitle="The ultimate competitive gaming platform."
                     />
 
-                    {/* The Moved HeroCarousel */}
                     <HeroCarousel images={heroImages} />
                 </div>
 
-                {/* Sports Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-24">
                     {sports.map((sport, index) => (
                         <motion.button
@@ -97,10 +93,8 @@ const LandingPage: React.FC = () => {
                                 : 'hover:-translate-y-2 hover:shadow-2xl hover:border-white/20'
                                 }`}
                         >
-                            {/* Hover Gradient Background */}
                             <div className={`absolute inset-0 rounded-3xl bg-gradient-to-br ${sport.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`} />
 
-                            {/* Glow Effect */}
                             <div className={`absolute -inset-1 rounded-3xl ${sport.bgGlow} blur-xl opacity-0 group-hover:opacity-50 transition-opacity duration-500`} />
 
                             <div className="relative z-10">
