@@ -2,51 +2,43 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
-const heroImages = [
-    {
-        id: 1,
-        url: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?w=1200&h=600&fit=crop',
-        alt: 'Pool Tournament Action',
-        title: 'Pool Championship',
-        subtitle: 'Watch the best compete for glory'
-    },
-    {
-        id: 2,
-        url: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=1200&h=600&fit=crop',
-        alt: 'Soccer Match',
-        title: 'FIFA World League',
-        subtitle: 'Experience the thrill of virtual football'
-    },
-    {
-        id: 3,
-        url: 'https://images.unsplash.com/photo-1624526267942-ab0ff8a3e972?w=1200&h=600&fit=crop',
-        alt: 'Cricket Match',
-        title: 'Cricket T20 Series',
-        subtitle: 'Big hits and massive sixes'
-    }
-];
 
-const HeroCarousel: React.FC = () => {
+export interface HeroImage {
+    id: number;
+    url: string;
+    alt: string;
+    title: string;
+    subtitle: string;
+}
+
+interface HeroCarouselProps {
+    images: HeroImage[];
+}
+
+const HeroCarousel: React.FC<HeroCarouselProps> = ({ images }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [direction, setDirection] = useState(0);
 
     // Auto-advance carousel every 5 seconds
     useEffect(() => {
+        if (images.length === 0) return;
         const timer = setInterval(() => {
             handleNext();
         }, 5000);
 
         return () => clearInterval(timer);
-    }, [currentIndex]);
+    }, [currentIndex, images.length]);
 
     const handleNext = () => {
+        if (images.length === 0) return;
         setDirection(1);
-        setCurrentIndex((prev) => (prev + 1) % heroImages.length);
+        setCurrentIndex((prev) => (prev + 1) % images.length);
     };
 
     const handlePrev = () => {
+        if (images.length === 0) return;
         setDirection(-1);
-        setCurrentIndex((prev) => (prev - 1 + heroImages.length) % heroImages.length);
+        setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
     };
 
     const handleDotClick = (index: number) => {
@@ -75,6 +67,10 @@ const HeroCarousel: React.FC = () => {
     const swipePower = (offset: number, velocity: number) => {
         return Math.abs(offset) * velocity;
     };
+
+    if (images.length === 0) {
+        return null; // Or a loading skeleton/placeholder
+    }
 
     return (
         <motion.div
@@ -119,8 +115,8 @@ const HeroCarousel: React.FC = () => {
                             {/* Image with overlay */}
                             <div className="relative w-full h-full">
                                 <img
-                                    src={heroImages[currentIndex].url}
-                                    alt={heroImages[currentIndex].alt}
+                                    src={images[currentIndex].url}
+                                    alt={images[currentIndex].alt}
                                     className="w-full h-full object-cover"
                                 />
                                 {/* Gradient overlay for text readability */}
@@ -134,7 +130,7 @@ const HeroCarousel: React.FC = () => {
                                         transition={{ delay: 0.2 }}
                                         className="text-4xl md:text-5xl lg:text-6xl font-black mb-3 bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent"
                                     >
-                                        {heroImages[currentIndex].title}
+                                        {images[currentIndex].title}
                                     </motion.h2>
                                     <motion.p
                                         initial={{ opacity: 0, y: 20 }}
@@ -142,7 +138,7 @@ const HeroCarousel: React.FC = () => {
                                         transition={{ delay: 0.3 }}
                                         className="text-slate-300 text-lg md:text-xl max-w-2xl"
                                     >
-                                        {heroImages[currentIndex].subtitle}
+                                        {images[currentIndex].subtitle}
                                     </motion.p>
                                 </div>
                             </div>
@@ -168,13 +164,13 @@ const HeroCarousel: React.FC = () => {
 
                 {/* Dot indicators */}
                 <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-10">
-                    {heroImages.map((_, index) => (
+                    {images.map((_, index) => (
                         <button
                             key={index}
                             onClick={() => handleDotClick(index)}
                             className={`transition-all ${index === currentIndex
-                                    ? 'w-8 h-2 bg-white'
-                                    : 'w-2 h-2 bg-white/50 hover:bg-white/75'
+                                ? 'w-8 h-2 bg-white'
+                                : 'w-2 h-2 bg-white/50 hover:bg-white/75'
                                 } rounded-full`}
                             aria-label={`Go to slide ${index + 1}`}
                         />
@@ -183,7 +179,7 @@ const HeroCarousel: React.FC = () => {
 
                 {/* Slide counter */}
                 <div className="absolute top-6 right-6 px-4 py-2 rounded-full bg-black/40 backdrop-blur-sm border border-white/20 text-white text-sm font-medium z-10">
-                    {currentIndex + 1} / {heroImages.length}
+                    {currentIndex + 1} / {images.length}
                 </div>
             </div>
         </motion.div>

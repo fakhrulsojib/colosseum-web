@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Zap, Clock, Users, Flame } from 'lucide-react';
 import HeroCarousel from '../../core/components/landing/HeroCarousel';
+import type { HeroImage } from '../../core/components/landing/HeroCarousel';
 import PageHero from '../../core/components/landing/PageHero';
 import BentoGrid from '../../core/components/landing/BentoGrid';
 
@@ -113,7 +114,30 @@ const HeadlinerCard: React.FC = () => {
 };
 // ---------------------------------------
 
+// ---------------------------------------
+
 const PoolLandingPage: React.FC = () => {
+    const [heroImages, setHeroImages] = useState<HeroImage[]>([]);
+
+    useEffect(() => {
+        const fetchHeroImages = async () => {
+            try {
+                // Fetch from the pool service via gateway
+                const response = await fetch('/api/pool/hero-images');
+                if (response.ok) {
+                    const data = await response.json();
+                    setHeroImages(data);
+                } else {
+                    console.error('Failed to fetch pool hero images');
+                }
+            } catch (error) {
+                console.error('Error fetching pool hero images:', error);
+            }
+        };
+
+        fetchHeroImages();
+    }, []);
+
     return (
         <div className="min-h-screen bg-slate-900 text-white font-sans selection:bg-blue-500/30">
             {/* Enhanced Background Effects */}
@@ -140,7 +164,7 @@ const PoolLandingPage: React.FC = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.3 }}
                 >
-                    <HeroCarousel />
+                    <HeroCarousel images={heroImages} />
                     <HeadlinerCard />
                     <BentoGrid />
                 </motion.div>

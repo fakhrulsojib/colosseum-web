@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Trophy, Zap, Gamepad2 } from 'lucide-react';
 import HeroCarousel from '../components/landing/HeroCarousel';
+import type { HeroImage } from '../components/landing/HeroCarousel';
 import PageHero from '../components/landing/PageHero';
 
 
@@ -40,6 +41,27 @@ const sports = [
 ];
 
 const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
+    const [heroImages, setHeroImages] = useState<HeroImage[]>([]);
+
+    useEffect(() => {
+        const fetchHeroImages = async () => {
+            try {
+                // Fetch from the API gateway
+                const response = await fetch('/api/v1/hero-images');
+                if (response.ok) {
+                    const data = await response.json();
+                    setHeroImages(data);
+                } else {
+                    console.error('Failed to fetch hero images');
+                }
+            } catch (error) {
+                console.error('Error fetching hero images:', error);
+            }
+        };
+
+        fetchHeroImages();
+    }, []);
+
     return (
         <div className="min-h-screen bg-slate-900 text-white font-sans selection:bg-blue-500/30">
             {/* Background Effects */}
@@ -58,7 +80,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
                     />
 
                     {/* The Moved HeroCarousel */}
-                    <HeroCarousel />
+                    <HeroCarousel images={heroImages} />
                 </div>
 
                 {/* Sports Grid */}
