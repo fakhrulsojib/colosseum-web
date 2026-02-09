@@ -7,13 +7,11 @@ import PageHero from '../components/landing/PageHero';
 
 
 
-interface LandingPageProps {
-    onNavigate?: (page: string) => void;
-}
+import { useNavigate } from 'react-router-dom';
 
 const sports = [
     {
-        id: 'pool-landing', // Maps to the route/state in App.tsx
+        id: '/pool', // Route path
         title: 'Pool',
         icon: Trophy,
         description: 'Master the break, sink the 8-ball, and compete in high-stakes tournaments.',
@@ -21,7 +19,7 @@ const sports = [
         bgGlow: 'bg-blue-500/20'
     },
     {
-        id: 'cricket-landing', // Future
+        id: '/cricket', // Future route
         title: 'Cricket',
         icon: Zap,
         description: 'Experience the thrill of T20 matches and rise through the ranks.',
@@ -30,7 +28,7 @@ const sports = [
         disabled: true // Coming soon
     },
     {
-        id: 'fifa-landing', // Future
+        id: '/fifa', // Future route
         title: 'FIFA',
         icon: Gamepad2,
         description: 'Build your ultimate team and dominate the virtual pitch.',
@@ -40,7 +38,8 @@ const sports = [
     }
 ];
 
-const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
+const LandingPage: React.FC = () => {
+    const navigate = useNavigate();
     const [heroImages, setHeroImages] = useState<HeroImage[]>([]);
 
     useEffect(() => {
@@ -91,7 +90,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.3 + index * 0.1 }}
-                            onClick={() => !sport.disabled && onNavigate && onNavigate(sport.id)}
+                            onClick={() => !sport.disabled && navigate(sport.id)}
                             disabled={sport.disabled}
                             className={`group relative text-left p-8 rounded-3xl border border-white/10 backdrop-blur-xl transition-all duration-300 ${sport.disabled
                                 ? 'opacity-50 cursor-not-allowed grayscale'

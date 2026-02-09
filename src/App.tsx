@@ -1,48 +1,34 @@
 import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { GoogleOAuthProvider } from '@react-oauth/google';
-import Profile from './modules/core/pages/Profile';
-import LeaderboardPage from './modules/pool/pages/LeaderboardPage';
-import MatchEntryPage from './modules/pool/pages/MatchEntryPage';
+import MainLayout from './modules/core/layouts/MainLayout';
 import LandingPage from './modules/core/pages/LandingPage';
 import PoolLandingPage from './modules/pool/pages/PoolLandingPage';
-import DockNavigation from './modules/core/components/landing/DockNavigation';
+import ProfilePage from './modules/core/pages/Profile';
+import LeaderboardPage from './modules/pool/pages/LeaderboardPage';
 import './App.css';
 
 const App: React.FC = () => {
-    const [currentPage, setCurrentPage] = useState<'landing' | 'pool-landing' | 'profile' | 'leaderboard' | 'match'>('landing');
     const [token, setToken] = useState<string | null>(localStorage.getItem('token'));
-
-    const handleLogout = () => {
-        setToken(null);
-        localStorage.removeItem('token');
-        setCurrentPage('landing');
-    };
-
-    const renderPage = () => {
-        switch (currentPage) {
-            case 'landing': return <LandingPage onNavigate={setCurrentPage as any} />;
-            case 'pool-landing': return <PoolLandingPage />;
-            case 'profile': return <Profile onLogout={handleLogout} />;
-            case 'leaderboard': return <LeaderboardPage />;
-            case 'match': return <MatchEntryPage />;
-            default: return <LandingPage onNavigate={setCurrentPage as any} />;
-        }
-    };
 
     return (
         <GoogleOAuthProvider clientId={import.meta.env.GOOGLE_CLIENT_ID}>
-            <div className="min-h-screen bg-slate-900 text-white font-sans relative">
-                {/* Render the current page */}
-                {renderPage()}
-
-                {/* Global Dock Navigation */}
-                <DockNavigation
-                    currentPage={currentPage}
-                    onNavigate={setCurrentPage}
-                    isAuthenticated={!!token}
-                    setToken={setToken}
-                />
-            </div>
+            <Router>
+                <Routes>
+                    <Route element={<MainLayout isAuthenticated={!!token} setToken={setToken} />}>
+                        <Route path="/" element={<LandingPage />} />
+                        <Route path="/pool" element={<PoolLandingPage />} />
+                        <Route path="/leaderboard" element={<LeaderboardPage />} />
+                        <Route
+                            path="/profile"
+                            element={<ProfilePage onLogout={() => {
+                                setToken(null);
+                                localStorage.removeItem('token');
+                            }} />}
+                        />
+                    </Route>
+                </Routes>
+            </Router>
         </GoogleOAuthProvider>
     );
 };
