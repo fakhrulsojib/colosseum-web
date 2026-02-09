@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Zap, Clock, Users, Flame } from 'lucide-react';
+import HeroCarousel from '../../core/components/landing/HeroCarousel';
 import PageHero from '../../core/components/landing/PageHero';
 import BentoGrid from '../../core/components/landing/BentoGrid';
 
@@ -139,7 +140,7 @@ const PoolLandingPage: React.FC = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.3 }}
                 >
-                    {/* Replaced HeroCarousel with HeadlinerCard */}
+                    <HeroCarousel />
                     <HeadlinerCard />
                     <BentoGrid />
                 </motion.div>
