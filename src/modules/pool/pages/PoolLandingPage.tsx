@@ -1,46 +1,51 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import { useOutletContext } from 'react-router-dom';
 import HeroCarousel from '../../core/components/landing/HeroCarousel';
 import type { HeroImage } from '../../core/components/landing/HeroCarousel';
 import PageHero from '../../core/components/landing/PageHero';
-import BentoGrid from '../components/BentoGrid';
-import TopMatchCard from '../components/TopMatchCard';
-import type { TopMatchPlayer } from '../components/TopMatchCard';
-import MatchPreviewList from '../components/MatchPreviewList';
-import MatchListModal from '../components/MatchListModal';
+import BentoGrid, { BentoItem } from '../../core/layouts/BentoGrid';
+// import TopMatchCard from '../components/TopMatchCard';
+// import type { TopMatchPlayer } from '../components/TopMatchCard';
+import SeasonLeaderboardCard from '../components/SeasonLeaderboardCard';
+import HighStakesResultsCard from '../components/HighStakesResultsCard';
+import MyStatsCard from '../components/MyStatsCard';
+import ActiveStreaksCard from '../components/ActiveStreaksCard';
+import BiggestMoversCard from '../components/BiggestMoversCard';
+import RecentActivityFeed from '../components/RecentActivityFeed';
+import Ticker from '../../core/components/landing/Ticker';
 
-const player1: TopMatchPlayer = {
-    name: "Sarah",
-    elo: 1450,
-    role: "Challenger",
-    avatarLetter: "S",
-    colorClasses: {
-        avatar: "bg-gradient-to-br from-blue-400 via-blue-500 to-blue-600",
-        name: "from-blue-300 to-blue-500",
-        elo: "text-blue-400",
-        border: "border-blue-400/30 group-hover:border-blue-400/50",
-        shadow: "shadow-blue-500/50"
-    }
-};
+// const player1: TopMatchPlayer = {
+//     name: "Sarah",
+//     elo: 1450,
+//     role: "Challenger",
+//     avatarLetter: "S",
+//     colorClasses: {
+//         avatar: "bg-gradient-to-br from-blue-400 via-blue-500 to-blue-600",
+//         name: "from-blue-300 to-blue-500",
+//         elo: "text-blue-400",
+//         border: "border-blue-400/30 group-hover:border-blue-400/50",
+//         shadow: "shadow-blue-500/50"
+//     }
+// };
 
-const player2: TopMatchPlayer = {
-    name: "John",
-    elo: 1425,
-    role: "Defender",
-    avatarLetter: "J",
-    colorClasses: {
-        avatar: "bg-gradient-to-br from-purple-400 via-purple-500 to-purple-600",
-        name: "from-purple-300 to-purple-500",
-        elo: "text-purple-400",
-        border: "border-purple-400/30 group-hover:border-purple-400/50",
-        shadow: "shadow-purple-500/50"
-    }
-};
+// const player2: TopMatchPlayer = {
+//     name: "John",
+//     elo: 1425,
+//     role: "Defender",
+//     avatarLetter: "J",
+//     colorClasses: {
+//         avatar: "bg-gradient-to-br from-purple-400 via-purple-500 to-purple-600",
+//         name: "from-purple-300 to-purple-500",
+//         elo: "text-purple-400",
+//         border: "border-purple-400/30 group-hover:border-purple-400/50",
+//         shadow: "shadow-purple-500/50"
+//     }
+// };
 
 const PoolLandingPage: React.FC = () => {
+    const { isAuthenticated } = useOutletContext<{ isAuthenticated: boolean }>();
     const [heroImages, setHeroImages] = useState<HeroImage[]>([]);
-
-    const [isMatchModalOpen, setIsMatchModalOpen] = useState(false);
 
     const fetchHeroImages = React.useCallback(async () => {
         try {
@@ -79,7 +84,6 @@ const PoolLandingPage: React.FC = () => {
                     subtitleClassName="text-lg md:text-xl mb-10 max-w-2xl"
                 />
 
-
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -90,23 +94,53 @@ const PoolLandingPage: React.FC = () => {
                         uploadEndpoint="/api/pool/hero-images"
                         onRefresh={fetchHeroImages}
                     />
-                    <TopMatchCard
-                        title="The Rematch"
-                        player1={player1}
-                        player2={player2}
-                        communityHype={85}
-                        viewersCount="2,847"
-                        countdown="04:30"
-                    />
-                    <MatchPreviewList onSeeAll={() => setIsMatchModalOpen(true)} />
-                    <BentoGrid />
+
+                    <div className="w-full mb-12 -mx-4 md:mx-0">
+                        <Ticker />
+                    </div>
+
+                    <BentoGrid>
+                        {/* Row 1 */}
+                        {/* <BentoItem colSpan={3}>
+                            <TopMatchCard
+                                title="The Rematch"
+                                player1={player1}
+                                player2={player2}
+                                communityHype={85}
+                                viewersCount="2,847"
+                                countdown="04:30"
+                                className="mb-0"
+                            />
+                        </BentoItem> */}
+
+                        {/* Row 2 */}
+                        <BentoItem colSpan={1}>
+                            <SeasonLeaderboardCard />
+                        </BentoItem>
+                        <BentoItem colSpan={2}>
+                            <HighStakesResultsCard />
+                        </BentoItem>
+
+                        {/* Row 3 */}
+                        <BentoItem colSpan={2}>
+                            <BiggestMoversCard />
+                        </BentoItem>
+                        <BentoItem colSpan={1}>
+                            <ActiveStreaksCard />
+                        </BentoItem>
+
+                        {/* Row 4 */}
+                        {isAuthenticated && (
+                            <BentoItem colSpan={1}>
+                                <MyStatsCard isAuthenticated={isAuthenticated} />
+                            </BentoItem>
+                        )}
+                        <BentoItem colSpan={isAuthenticated ? 2 : 3}>
+                            <RecentActivityFeed limit={5} />
+                        </BentoItem>
+                    </BentoGrid>
                 </motion.div>
             </main>
-
-            <MatchListModal 
-                isOpen={isMatchModalOpen} 
-                onClose={() => setIsMatchModalOpen(false)} 
-            />
         </div>
     );
 };

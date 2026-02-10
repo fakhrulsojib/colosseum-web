@@ -23,6 +23,7 @@ interface TopMatchCardProps {
     communityHype: number;
     viewersCount: string;
     countdown: string;
+    className?: string;
 }
 
 const TopMatchCard: React.FC<TopMatchCardProps> = ({
@@ -31,14 +32,15 @@ const TopMatchCard: React.FC<TopMatchCardProps> = ({
     player2,
     communityHype,
     viewersCount,
-    countdown
+    countdown,
+    className = ""
 }) => {
     return (
         <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="w-full mb-16 relative group"
+            className={`w-full relative group ${className}`}
         >
             <div className="absolute inset-0 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 rounded-3xl blur-xl opacity-30 group-hover:opacity-50 transition-opacity duration-500"></div>
             <div className="relative bg-gradient-to-br from-slate-800/90 to-slate-900/90 backdrop-blur-xl border border-white/20 rounded-3xl p-10 md:p-12 overflow-hidden shadow-2xl">

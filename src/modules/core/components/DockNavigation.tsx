@@ -3,7 +3,7 @@ import { Home, Trophy, User, LogIn, LogOut, PlusCircle, Gamepad2, CircleDot } fr
 import { motion, AnimatePresence } from 'framer-motion';
 import { useGoogleLogin } from '@react-oauth/google';
 import { useNavigate, useLocation } from 'react-router-dom';
-import MatchEntryModal from '../../../pool/components/MatchEntryModal';
+import MatchEntryModal from '../../pool/components/MatchEntryModal';
 
 interface DockNavigationProps {
     isAuthenticated: boolean;

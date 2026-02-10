@@ -1,6 +1,6 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-import DockNavigation from '../components/landing/DockNavigation';
+import DockNavigation from '../components/DockNavigation';
 
 interface MainLayoutProps {
     isAuthenticated: boolean;
@@ -10,7 +10,7 @@ interface MainLayoutProps {
 const MainLayout: React.FC<MainLayoutProps> = ({ isAuthenticated, setToken }) => {
     return (
         <div className="min-h-screen bg-slate-900 text-white font-sans relative">
-            <Outlet />
+            <Outlet context={{ isAuthenticated }} />
             <DockNavigation
                 isAuthenticated={isAuthenticated}
                 setToken={setToken}

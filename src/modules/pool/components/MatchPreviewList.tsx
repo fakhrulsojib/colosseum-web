@@ -13,9 +13,10 @@ interface MatchWithUsers extends Match {
 
 interface MatchPreviewListProps {
     onSeeAll: () => void;
+    className?: string;
 }
 
-const MatchPreviewList: React.FC<MatchPreviewListProps> = ({ onSeeAll }) => {
+const MatchPreviewList: React.FC<MatchPreviewListProps> = ({ onSeeAll, className = "" }) => {
     const [matches, setMatches] = useState<MatchWithUsers[]>([]);
     const [loading, setLoading] = useState(true);
 
@@ -56,7 +57,7 @@ const MatchPreviewList: React.FC<MatchPreviewListProps> = ({ onSeeAll }) => {
         <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="w-full bg-slate-900/50 backdrop-blur-md rounded-3xl border border-white/10 overflow-hidden mb-12"
+            className={`w-full bg-slate-900/50 backdrop-blur-md rounded-3xl border border-white/10 overflow-hidden ${className}`}
         >
             <div className="p-6 md:p-8 flex items-center justify-between border-b border-white/5">
                 <h3 className="text-xl font-bold text-white flex items-center gap-2">
