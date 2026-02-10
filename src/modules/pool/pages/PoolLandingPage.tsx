@@ -6,6 +6,8 @@ import PageHero from '../../core/components/landing/PageHero';
 import BentoGrid from '../components/BentoGrid';
 import TopMatchCard from '../components/TopMatchCard';
 import type { TopMatchPlayer } from '../components/TopMatchCard';
+import MatchPreviewList from '../components/MatchPreviewList';
+import MatchListModal from '../components/MatchListModal';
 
 const player1: TopMatchPlayer = {
     name: "Sarah",
@@ -37,6 +39,8 @@ const player2: TopMatchPlayer = {
 
 const PoolLandingPage: React.FC = () => {
     const [heroImages, setHeroImages] = useState<HeroImage[]>([]);
+
+    const [isMatchModalOpen, setIsMatchModalOpen] = useState(false);
 
     const fetchHeroImages = React.useCallback(async () => {
         try {
@@ -94,9 +98,15 @@ const PoolLandingPage: React.FC = () => {
                         viewersCount="2,847"
                         countdown="04:30"
                     />
+                    <MatchPreviewList onSeeAll={() => setIsMatchModalOpen(true)} />
                     <BentoGrid />
                 </motion.div>
             </main>
+
+            <MatchListModal 
+                isOpen={isMatchModalOpen} 
+                onClose={() => setIsMatchModalOpen(false)} 
+            />
         </div>
     );
 };
