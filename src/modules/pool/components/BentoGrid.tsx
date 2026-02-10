@@ -1,7 +1,7 @@
 import React from 'react';
-import Ticker from './Ticker';
-import UpsetBox from './UpsetBox';
-import OnFireBox from './OnFireBox';
+import Ticker from '../../core/components/landing/Ticker';
+import UpsetBox from '../../core/components/landing/UpsetBox';
+import OnFireBox from '../../core/components/landing/OnFireBox';
 import { motion } from 'framer-motion';
 import { ArrowRight, Trophy } from 'lucide-react';
 

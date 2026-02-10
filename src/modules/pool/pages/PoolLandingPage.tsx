@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import HeroCarousel from '../../core/components/landing/HeroCarousel';
 import type { HeroImage } from '../../core/components/landing/HeroCarousel';
 import PageHero from '../../core/components/landing/PageHero';
-import BentoGrid from '../../core/components/landing/BentoGrid';
+import BentoGrid from '../components/BentoGrid';
 import TopMatchCard from '../components/TopMatchCard';
 import type { TopMatchPlayer } from '../components/TopMatchCard';
 
